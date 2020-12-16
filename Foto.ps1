@@ -46,10 +46,9 @@ function Write-Log()
 {
    $dia = Get-Date -Format 'dd/MM/yyyy'
    $hora = Get-Date -Format 'hh:mm'
-   $ip = <# depois reparar #>
+   $ip = Get-Host-Ip
 
-
-   Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $(verifica-arquivo)  -Encoding utf8 -Append
+   Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $(Read-Files-Name)  -Encoding utf8 -Append
 }
 
 
