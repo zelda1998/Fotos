@@ -30,6 +30,12 @@ function Read-Files-Name()
 }
 
 
+function Get-Host-Ip()
+{
+   $ip_request = Invoke-WebRequest 'https://api.ipify.org' 
+   return ($ip_request).Content
+}
+
 function Write-Log()
 {
    $dia = Get-Date -Format 'dd/MM/yyyy'
@@ -51,7 +57,7 @@ function Get-Images()
       for ($i = 0; $i -lt $qtdImgs; $i++) {   
          <#
           # ta dando xabu depois testar
-          wget https://picsum.photos/200 -OutFile foto$i.jpeg  
+          wget https://picsum.photos/200 -OutFile foto$i.jpeg
           #> 
           Write-Host 'Alvaro macaco'
       }
