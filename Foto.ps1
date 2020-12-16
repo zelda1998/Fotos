@@ -20,6 +20,7 @@ function verifica-cria-pasta(){
   
   }  
 
+
 }
 
 function verifica-arquivo(){ 
@@ -41,8 +42,7 @@ function verifica-arquivo(){
 }
 
 
-function escreve-log(){
-  
+function escreve-log(){  
 
  $dia = Get-Date -Format 'dd/MM/yyyy'
  $hora = Get-Date -Format 'hh:mm'
@@ -51,7 +51,6 @@ function escreve-log(){
  echo $dia'; '$hora'; '$ip | Out-File -FilePath $(verifica-arquivo)  -Encoding utf8 -Append
 
 }
-
 
 
 function baixa-imagens(){
@@ -66,9 +65,7 @@ cd .\$folderName
      for($i=0; $i -lt $qtdImgs; $i++){   
     
 
-        wget https://picsum.photos/200 -OutFile foto$i.jpeg  
-
-        
+        wget https://picsum.photos/200 -OutFile foto$i.jpeg       
 
     }
 
@@ -83,6 +80,5 @@ cd .\$folderName
   }
 
 }
-
 
 baixa-imagens
