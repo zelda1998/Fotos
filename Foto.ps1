@@ -1,10 +1,10 @@
-﻿
 $qtdImgs = 5
 $folderName = 'fts' 
+
 function Test-Or-Create-Dir() 
 {
-   if ((Test-Path -Path pwd\$folderName)) 
-   {
+  <#if((Test-Path -Path pwd\$folderName)){
+
       Write-Host "Diretorio ja existe"
       return 0;
    }
@@ -35,9 +35,9 @@ function Write-Log()
    $hora = Get-Date -Format 'hh:mm'
    $ip = <# depois reparar #>
 
+
    Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $(verifica-arquivo)  -Encoding utf8 -Append
 }
-
 
 
 function Get-Images() 
@@ -55,6 +55,7 @@ function Get-Images()
           Write-Host 'Alvaro macaco'
       }
 
+
       Read-Files-Name
       
       Write-Log
@@ -63,6 +64,5 @@ function Get-Images()
       Write-Output "Imagens baixadas"  
    }
 }
-
 
 Get-Images
