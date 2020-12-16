@@ -10,8 +10,9 @@ function Test-Or-Create-Dir()
    }
    else {
       mkdir $folderName   
-      return 1; <# Nao retornava nada, o if passava direto #>
+      return 1; Nao retornava nada, o if passava direto
    }  
+   #>
 }
 
 function Read-Files-Name() 
