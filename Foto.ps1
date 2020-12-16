@@ -32,8 +32,14 @@ function Read-Files-Name()
 
 function Get-Host-Ip()
 {
-   $ip_request = Invoke-WebRequest 'https://api.ipify.org' 
-   return ($ip_request).Content
+   try {
+      $ip_request = Invoke-WebRequest 'https://api.ipify.org'    
+      return ($ip_request).Content
+   }
+   catch {
+      Write-Host 'É preciso estar conectado a internet para o script funcionar.'
+      Exit-PSHostProcess 1
+   }
 }
 
 function Write-Log()
