@@ -6,7 +6,7 @@ $folderName='fts'
 
 function verifica-cria-pasta(){
 
-  if((Test-Path -Path pwd\$folderName)){
+  <#if((Test-Path -Path pwd\$folderName)){
   
       Write-Host "Diretorio ja existe"
 
@@ -18,7 +18,7 @@ function verifica-cria-pasta(){
   
      mkdir $folderName             
   
-  }  
+  }  #>
 
 
 }
