@@ -1,88 +1,68 @@
 ﻿
-$qtdImgs=5
-
-$folderName='fts' 
-
-
-function verifica-cria-pasta(){
-
-  if((Test-Path -Path pwd\$folderName)){
-  
+$qtdImgs = 5
+$folderName = 'fts' 
+function Test-Or-Create-Dir() 
+{
+   if ((Test-Path -Path pwd\$folderName)) 
+   {
       Write-Host "Diretorio ja existe"
-
       return 0;
-      
-  
-  }
-  else{
-  
-     mkdir $folderName             
-  
-  }  
-
+   }
+   else {
+      mkdir $folderName   
+      return 1; <# Nao retornava nada, o if passava direto #>
+   }  
 }
 
-function verifica-arquivo(){ 
+function Read-Files-Name() 
+{ 
+   $logName = 'log.txt'
     
-   $logName='log.txt'
-    
-   if((Test-Path -Path \$logName)){
-   
+   if ((Test-Path -Path \$logName)) 
+   {
       Write-Host "Já existe um arquivo com esse nome"
-   
    }
-
-   else{
-   
+   else 
+   {
       return $logName                        
-   
    }
-
 }
 
 
-function escreve-log(){
-  
+function Write-Log()
+{
+   $dia = Get-Date -Format 'dd/MM/yyyy'
+   $hora = Get-Date -Format 'hh:mm'
+   $ip = <# depois reparar #>
 
- $dia = Get-Date -Format 'dd/MM/yyyy'
- $hora = Get-Date -Format 'hh:mm'
- $ip = Get-NetIPAddress -AddressFamily IPv4
-
- echo $dia'; '$hora'; '$ip | Out-File -FilePath $(verifica-arquivo)  -Encoding utf8 -Append
-
+   Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $(verifica-arquivo)  -Encoding utf8 -Append
 }
 
 
 
-function baixa-imagens(){
+function Get-Images() 
+{
+   if (Test-Or-Create-Dir -ne 0) 
+   {
+      Set-Location $folderName
+      Write-Output "Baixando imagens....."
 
-if(verifica-cria-pasta -ne 0){
+      for ($i = 0; $i -lt $qtdImgs; $i++) {   
+         <#
+          # ta dando xabu depois testar
+          wget https://picsum.photos/200 -OutFile foto$i.jpeg  
+          #> 
+          Write-Host 'Alvaro macaco'
+      }
 
-cd .\$folderName
+      Read-Files-Name
+      
+      Write-Log
+      Set-Location '..'
 
-   echo "Baixando imagens....."
-
-
-     for($i=0; $i -lt $qtdImgs; $i++){   
-    
-
-        wget https://picsum.photos/200 -OutFile foto$i.jpeg  
-
-        
-
-    }
-
- verifica-arquivo  
-
- escreve-log
-
- cd..
-
-  echo "Imagens baixadas"  
-
-  }
-
+      Write-Output "Imagens baixadas"  
+   }
 }
 
 
-baixa-imagens
+Get-Images
