@@ -1,7 +1,7 @@
 ﻿
 $qtdImgs=5
 
-$folderName='fotos' 
+$folderName='fts' 
 
 
 function verifica-cria-pasta(){
