@@ -30,14 +30,25 @@ function Read-Files-Name()
 }
 
 
+function Get-Host-Ip()
+{
+   try {
+      $ip_request = Invoke-WebRequest 'https://api.ipify.org'    
+      return ($ip_request).Content
+   }
+   catch {
+      Write-Host 'É preciso estar conectado a internet para o script funcionar.'
+      Exit-PSHostProcess 1
+   }
+}
+
 function Write-Log()
 {
    $dia = Get-Date -Format 'dd/MM/yyyy'
    $hora = Get-Date -Format 'hh:mm'
-   $ip = <# depois reparar #>
+   $ip = Get-Host-Ip
 
-
-   Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $(verifica-arquivo)  -Encoding utf8 -Append
+   Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $(Read-Files-Name)  -Encoding utf8 -Append
 }
 
 
@@ -51,7 +62,7 @@ function Get-Images()
       for ($i = 0; $i -lt $qtdImgs; $i++) {   
          <#
           # ta dando xabu depois testar
-          wget https://picsum.photos/200 -OutFile foto$i.jpeg  
+          wget https://picsum.photos/200 -OutFile foto$i.jpeg
           #> 
           Write-Host 'Alvaro macaco'
       }
