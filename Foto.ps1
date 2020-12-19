@@ -1,5 +1,6 @@
 $qtdImgs = 5
 $folderName = 'fts' 
+$url = "https://picsum.photos/200"
 
 function Test-Or-Create-Dir() 
 {
@@ -52,29 +53,14 @@ function Write-Log()
 }
 
 
-function Get-Images() 
+function Get-Images($photo_name) 
 {
-   if (Test-Or-Create-Dir -ne 0) 
+   try
    {
-      Set-Location $folderName
-      Write-Output "Baixando imagens....."
-
-      for ($i = 0; $i -lt $qtdImgs; $i++) {   
-         <#
-          # ta dando xabu depois testar
-          wget https://picsum.photos/200 -OutFile foto$i.jpeg
-          #> 
-          Write-Host 'Alvaro macaco'
-      }
-
-
-      Read-Files-Name
-      
-      Write-Log
-      Set-Location '..'
-
-      Write-Output "Imagens baixadas"  
+      Invoke-WebRequest $url -OutFile "$photo_name.jpeg"
+   }
+   catch
+   {
+      Write-Host "Ocorreu um erro ao realizar o download da imagem."
    }
 }
-
-Get-Images
