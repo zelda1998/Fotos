@@ -13,7 +13,7 @@ function Test-Or-Create-Dir()
       New-Item $folderName -ItemType "Directory" | Out-Null
       return 1 | Out-Null 
    }  
-   
+
 }
 
 function Read-Files-Name() 
@@ -57,10 +57,15 @@ function Get-Images($photo_name)
 {
    try
    {
-      Invoke-WebRequest $url -OutFile "$photo_name.jpeg"
+      Invoke-WebRequest $url -OutFile "$photo_name.jpeg" | Out-Null
    }
    catch
    {
       Write-Host "Ocorreu um erro ao realizar o download da imagem."
    }
+}
+
+for ($i = 0; $i -lt $qtdImgs; $i++)
+{
+   Get-Images("photo$i")
 }
