@@ -3,16 +3,16 @@ $folderName = 'fts'
 
 function Test-Or-Create-Dir() 
 {
-  <#if((Test-Path -Path pwd\$folderName)){
-
-      Write-Host "Diretorio ja existe"
-      return 0;
+   if (Test-Path -Path $folderName) 
+   {
+      Write-Host "Diretorio já existente."
+      return 0 | Out-Null;
    }
    else {
-      mkdir $folderName   
-      return 1; Nao retornava nada, o if passava direto
+      New-Item $folderName -ItemType "Directory" | Out-Null
+      return 1 | Out-Null 
    }  
-   #>
+   
 }
 
 function Read-Files-Name() 
