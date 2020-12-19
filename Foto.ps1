@@ -1,35 +1,20 @@
 $qtdImgs = 5
 $folderName = 'fts' 
 $url = "https://picsum.photos/200"
+$logName = 'log.txt'
 
 function Test-Or-Create-Dir() 
 {
    if (Test-Path -Path $folderName) 
    {
-      Write-Host "Diretorio já existente."
-      return 0 | Out-Null;
+      return 0
    }
    else {
       New-Item $folderName -ItemType "Directory" | Out-Null
-      return 1 | Out-Null 
+      return 0
    }  
 
 }
-
-function Read-Files-Name() 
-{ 
-   $logName = 'log.txt'
-    
-   if ((Test-Path -Path \$logName)) 
-   {
-      Write-Host "Já existe um arquivo com esse nome"
-   }
-   else 
-   {
-      return $logName                        
-   }
-}
-
 
 function Get-Host-Ip()
 {
@@ -49,9 +34,8 @@ function Write-Log()
    $hora = Get-Date -Format 'hh:mm'
    $ip = Get-Host-Ip
 
-   Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $(Read-Files-Name)  -Encoding utf8 -Append
+   Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $logName -Encoding utf8 -Append
 }
-
 
 function Get-Images($photo_name) 
 {
@@ -65,7 +49,29 @@ function Get-Images($photo_name)
    }
 }
 
+<#
+## EXECUTION
+do 
+{
+   if ($(Test-Or-Create-Dir) -eq 0) 
+   {
+      Write-Host "Já existe um diretório cujo nome é utilizado pelo processo. Deseja utilizá-lo?" -ForegroundColor Red
+      Write-Host "[S/N]: " -NoNewline
+      $asw = Read-Host 
+      if ($asw -eq 'S' -or $asw -eq 'N') {
+         break
+      }
+      else 
+      {
+         Write-Host "Opcão Inválida."   
+      }
+   }
+   
+} until (0>1)
+
 for ($i = 0; $i -lt $qtdImgs; $i++)
 {
    Get-Images("photo$i")
 }
+#>
+
