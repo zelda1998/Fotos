@@ -1,27 +1,7 @@
 ﻿
-$qtdImgs=5
-
-$folderName='fts' 
 
 
-function verifica-cria-pasta(){
 
-  <#if((Test-Path -Path pwd\$folderName)){
-  
-      Write-Host "Diretorio ja existe"
-
-      return 0;
-      
-  
-  }
-  else{
-  
-     mkdir $folderName             
-  
-  }  #>
-
-
-}
 
 function verifica-arquivo(){ 
     
@@ -65,7 +45,7 @@ cd .\$folderName
      for($i=0; $i -lt $qtdImgs; $i++){   
     
 
-        wget https://picsum.photos/200 -OutFile foto$i.jpeg       
+        wget https://picsum.photos/200 -OutFile foto$i.jpeg     
 
     }
 
@@ -80,5 +60,11 @@ cd .\$folderName
   }
 
 }
+
+
+
+$qtdImgs=5
+
+$folderName='fts' 
 
 baixa-imagens
