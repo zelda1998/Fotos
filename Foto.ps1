@@ -2,7 +2,7 @@ $qtdImgs = 5
 $folderName = 'fts' 
 $url = "https://picsum.photos/200"
 
-function Test-Or-Create-Dir() 
+function Test-Dir() 
 {
    if (Test-Path -Path $folderName) 
    {
@@ -16,7 +16,7 @@ function Test-Or-Create-Dir()
 
 }
 
-function Read-Files-Name() 
+function Read-Logfile() 
 { 
    $logName = 'log.txt'
     
@@ -49,7 +49,7 @@ function Write-Log()
    $hora = Get-Date -Format 'hh:mm'
    $ip = Get-Host-Ip
 
-   Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $(Read-Files-Name)  -Encoding utf8 -Append
+   Write-Output $dia'; '$hora'; '$ip | Out-File -FilePath $(Read-Logfile)  -Encoding utf8 -Append
 }
 
 
