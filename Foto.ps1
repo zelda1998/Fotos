@@ -16,7 +16,7 @@ function Test-Dir()
 
 }
 
-function Read-Logfile() 
+function Get-HostIp() 
 { 
    try {
       $ip_request = Invoke-WebRequest 'https://api.ipify.org'    
@@ -31,16 +31,16 @@ function Read-Logfile()
 function Write-Log($status)
 {
    $dia = Get-Date -Format 'dd/MM/yyyy'
-   $hora = Get-Date -Format 'hh:mm'
-   $ip = Get-Host-Ip
+   $hora = Get-Date -Format 'hh:mm:ss'
+   $ip = Get-HostIp
 
    if($status -eq 1)
    {
-      Write-Output "$dia'; '$hora'; '$ip; Successful"  | Out-File -FilePath $logName -Encoding utf8 -Append
+      Write-Output "$dia; $hora; $ip; Successful"  | Out-File -FilePath $logName -Encoding utf8 -Append
    }
    else 
    {
-      Write-Output "$dia'; '$hora'; '$ip; Failed" | Out-File -FilePath $logName -Encoding utf8 -Append
+      Write-Output "$dia; $hora; $ip; Failed" | Out-File -FilePath $logName -Encoding utf8 -Append
    }
 
 }
@@ -61,13 +61,13 @@ function Get-Image($photo_name)
    return $status
 }
 
-function Invoke-Get-Image($ammount) 
+function Invoke-Images($ammount) 
 {
    Set-Location $folderName
 
    for ($i = 0; $i -lt $ammount; $i++) 
    {
-      Get-Image("photo$i")
+      Write-Log( $(Get-Image("photo$i")) )
    }
 }
 
@@ -100,7 +100,7 @@ function Manage{
 
 if ($(Manage) -eq 'S')
 {
-   Write-Log( $( Invoke-Get-Image( $qtdImgs ) ) )
+   Invoke-Images( $qtdImgs )
    Set-Location '..'
 }
 else 
