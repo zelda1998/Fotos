@@ -5,13 +5,13 @@ $logName = 'log.txt'
 
 function Test-Dir() 
 {
-   if (Test-Path -Path $folderName) 
+   if ($(Test-Path -Path $folderName)) 
    {
-      return 0
+      return 1
    }
    else {
       New-Item $folderName -ItemType "Directory" | Out-Null
-      return 1
+      return 0
    }  
 
 }
@@ -33,7 +33,7 @@ function Write-Log($status)
    $dia = Get-Date -Format 'dd/MM/yyyy'
    $hora = Get-Date -Format 'hh:mm'
    $ip = Get-Host-Ip
-   
+
    if($status -eq 1)
    {
       Write-Output "$dia'; '$hora'; '$ip; Successful"  | Out-File -FilePath $logName -Encoding utf8 -Append
@@ -74,7 +74,7 @@ function Invoke-Get-Image($ammount)
 function Manage{
    do 
    {
-      if ($(Test-Or-Create-Dir) -eq 0) 
+      if ($(Test-Dir) -eq 1) 
       {
          Write-Host "Já existe um diretório cujo nome é utilizado pelo processo. Deseja utilizá-lo?" -ForegroundColor Red
          Write-Host "[S/N]: " -NoNewline
@@ -98,7 +98,8 @@ function Manage{
 
 #EXECUTION
 
-if ($(Manage) -eq 'S'){
+if ($(Manage) -eq 'S')
+{
    Write-Log( $( Invoke-Get-Image( $qtdImgs ) ) )
    Set-Location '..'
 }
@@ -107,5 +108,3 @@ else
    Write-Host "Terminando o processo..."
    Exit-PSHostProcess 1
 }
-
-
