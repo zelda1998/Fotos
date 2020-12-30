@@ -1,4 +1,5 @@
 $qtdImgs = 5
+$originalFolder = Get-Location
 $folderName = 'fts' 
 $url = "https://picsum.photos/200"
 $logName = 'log.txt'
@@ -101,7 +102,7 @@ function Manage{
 if ($(Manage) -eq 'S')
 {
    Invoke-Images( $qtdImgs )
-   Set-Location '..'
+   Set-Location -Path $originalFolder
 }
 else 
 {
